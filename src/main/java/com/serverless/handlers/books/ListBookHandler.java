@@ -1,34 +1,33 @@
-package com.serverless.handlers;
+package com.serverless.handlers.books;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
-import com.serverless.model.Product;
+import com.serverless.model.Book;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ListProductsHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class ListBookHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-	private final Logger logger = LogManager.getLogger(this.getClass());
+	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         try {
-            // get all products
-            List<Product> products = new Product().list();
+            List<Book> books = Book.list();
 
-            // send the response back
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)
-                    .setObjectBody(products)
+                    .setObjectBody(books)
                     .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
                     .build();
         } catch (Exception ex) {
-            logger.error("Error in listing products: " + ex);
+            logger.error("Error in listing books: " + ex);
             return ApiGatewayResponse.builder().setStatusCode(500).build();
         }
     }

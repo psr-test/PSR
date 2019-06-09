@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: shop-api # NOTE: update this with your service name
+service: library-api # NOTE: update this with your service name
 #app: your-app-name
 #tenant: your-tenant-name
 
@@ -50,37 +50,62 @@ provider:
 
 # you can define service wide environment variables here
   environment:
-    PRODUCTS_TABLE_NAME: products_table
+    BOOKS_TABLE_NAME: books
+    BOOK_ACTION__TABLE_NAME: book_action
 
 # you can add packaging information here
 package:
   artifact: 'target/${self:service}-${self:provider.stage}.jar'
 
 functions:
-  listProducts:
-    handler: com.serverless.handlers.ListProductsHandler
+  listBooks:
+    handler: com.serverless.handlers.books.ListBookHandler
     events:
       - http:
-          path: /products
+          path: /books
           method: get
-  getProduct:
-    handler: com.serverless.handlers.GetProductHandler
+  getBook:
+    handler: com.serverless.handlers.books.GetBookHandler
     events:
       - http:
-          path: /products/{id}
+          path: /books/{id}
           method: get
-  createProduct:
-    handler: com.serverless.handlers.CreateProductHandler
+  createBook:
+    handler: com.serverless.handlers.books.CreateBookHandler
     events:
       - http:
-          path: /products
+          path: /books
           method: post
-  deleteProduct:
-    handler: com.serverless.handlers.DeleteProductHandler
+  deleteBook:
+    handler: com.serverless.handlers.books.DeleteBookHandler
     events:
       - http:
-          path: /products/{id}
+          path: /books/{id}
           method: delete
+  borrowBook:
+    handler: com.serverless.handlers.actions.borrow.BorrowActionHandler
+    events:
+      - http:
+          path: /borrow/
+          method: post
+  giveBackBook:
+    handler: com.serverless.handlers.actions.give_back.GiveBackActionHandler
+    events:
+      - http:
+          path: /give-back/
+          method: post
+  listActions:
+    handler: com.serverless.handlers.actions.ListActionsHandler
+    events:
+      - http:
+          path: /book-actions/
+          method: get
+  getAction:
+    handler: com.serverless.handlers.actions.GetActionHandler
+    events:
+      - http:
+          path: /book-actions/{id}
+          method: get
 
 
 #    The following are a few example events you can configure
@@ -131,10 +156,10 @@ functions:
 
 resources:
   Resources:
-    productsTable:
+    booksTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: products_table
+        TableName: books
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -144,6 +169,23 @@ resources:
           - AttributeName: id
             KeyType: HASH
           - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    booksActionTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: bookActions
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: person
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: person
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
