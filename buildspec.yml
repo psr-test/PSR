@@ -2,6 +2,8 @@ version: 0.2
 
 phases:
   install:
+    commands:
+      npm install --silent --no-progress -g serverless
     runtime-versions:
       java: openjdk11
   build:
@@ -12,6 +14,13 @@ phases:
     commands:
       - echo Build completed on `date`
       - mvn package
+      - mkdir -p target/stg
+      - mkdir target/prod
+      - serverless package --package target/prod --stage prod -v -r eu-central-1
+      - serverless package --package target/stg --stage stg -v -r eu-central-1
 artifacts:
   files:
-    - "**/*"
+    - target/**/*
+    - serverless.yml
+    - buildspec-deploy.yml
+    - deploy.sh
