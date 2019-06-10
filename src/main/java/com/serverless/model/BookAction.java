@@ -47,7 +47,7 @@ public class BookAction {
         this.id = id;
     }
 
-    @DynamoDBHashKey(attributeName = "bookId")
+    @DynamoDBAttribute(attributeName = "bookId")
     public String getBookId() { return bookId; }
     public void setBookId(String bookId) { this.bookId = bookId; }
 
@@ -59,7 +59,7 @@ public class BookAction {
         this.person = person;
     }
 
-    @DynamoDBRangeKey(attributeName = "action")
+    @DynamoDBAttribute(attributeName = "action")
     public String getAction() {
         return action.name();
     }
