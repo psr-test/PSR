@@ -51,7 +51,7 @@ provider:
 # you can define service wide environment variables here
   environment:
     BOOKS_TABLE_NAME: books
-    BOOK_ACTION__TABLE_NAME: book_action
+    BOOK_ACTION_TABLE_NAME: book_action
 
 # you can add packaging information here
 package:
