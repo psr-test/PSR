@@ -14,10 +14,10 @@ import java.util.Map;
 
 public class ListBookHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	@Override
-	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
+    @Override
+    public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         try {
             List<Book> books = Book.list();
 

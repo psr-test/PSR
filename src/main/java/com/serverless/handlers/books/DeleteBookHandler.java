@@ -13,10 +13,10 @@ import java.util.Map;
 
 public class DeleteBookHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	@Override
-	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
+    @Override
+    public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         try {
             Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
             String bookId = pathParameters.get("id");

@@ -19,41 +19,41 @@ import java.util.Map;
 
 public class GiveBackActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	@Override
-	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-      	try {
-      	    JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
+    @Override
+    public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
+        try {
+            JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
-      	    String bookId = body.get("bookId").asText();
-      	    String person = body.get("person").asText();
+            String bookId = body.get("bookId").asText();
+            String person = body.get("person").asText();
 
-			Book book = Book.get(bookId).get();
-			book.giveBack();
-			book.save();
-			BookAction action = new BookAction();
-			action.setBookId(book.getId());
-			action.setPerson(person);
-			action.setAction(BookAction.Action.GIVE_BACK.name());
-			action.setTimestamp(new Timestamp(new Date().getTime()).toString());
-			action.save();
+            Book book = Book.get(bookId).get();
+            book.giveBack();
+            book.save();
+            BookAction action = new BookAction();
+            action.setBookId(book.getId());
+            action.setPerson(person);
+            action.setAction(BookAction.Action.GIVE_BACK.name());
+            action.setTimestamp(new Timestamp(new Date().getTime()).toString());
+            action.save();
 
-			return ApiGatewayResponse.builder()
-					.setStatusCode(200)
-					.setObjectBody(book)
-					.setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
-					.build();
+            return ApiGatewayResponse.builder()
+                    .setStatusCode(200)
+                    .setObjectBody(book)
+                    .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                    .build();
 
-      	} catch (Exception ex) {
-      	    logger.error("Error in giving back a book: ", ex);
+        } catch (Exception ex) {
+            logger.error("Error in giving back a book: ", ex);
 
-			Response responseBody = new Response("Error in giving back a book: ", input);
-			return ApiGatewayResponse.builder()
-					.setStatusCode(500)
-					.setObjectBody(responseBody)
-					.setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
-					.build();
-      	}
-	}
+            Response responseBody = new Response("Error in giving back a book: ", input);
+            return ApiGatewayResponse.builder()
+                    .setStatusCode(500)
+                    .setObjectBody(responseBody)
+                    .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                    .build();
+        }
+    }
 }
