@@ -27,7 +27,7 @@ public class ListActionsHandler implements RequestHandler<Map<String, Object>, A
                     .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
                     .build();
         } catch (Exception ex) {
-            logger.error("Error in listing book actions: " + ex);
+            logger.error("Error in listing book actions: ", ex);
             return ApiGatewayResponse.builder().setStatusCode(500).build();
         }
     }

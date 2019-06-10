@@ -38,7 +38,7 @@ public class GetBookHandler implements RequestHandler<Map<String, Object>, ApiGa
                         .build();
             }
         } catch (Exception ex) {
-            logger.error("Error in retrieving book: " + ex);
+            logger.error("Error in retrieving book: ", ex);
             return ApiGatewayResponse.builder()
                     .setStatusCode(500)
                     .build();

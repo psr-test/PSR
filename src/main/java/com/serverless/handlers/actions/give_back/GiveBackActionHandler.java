@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
-public class GiveBackBookActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class GiveBackActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
 	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -37,6 +37,7 @@ public class GiveBackBookActionHandler implements RequestHandler<Map<String, Obj
 			action.setPerson(person);
 			action.setAction(BookAction.Action.GIVE_BACK.name());
 			action.setTimestamp(new Timestamp(new Date().getTime()).toString());
+			action.save();
 
 			return ApiGatewayResponse.builder()
 					.setStatusCode(200)
@@ -45,7 +46,7 @@ public class GiveBackBookActionHandler implements RequestHandler<Map<String, Obj
 					.build();
 
       	} catch (Exception ex) {
-      	    logger.error("Error in giving back a book: " + ex);
+      	    logger.error("Error in giving back a book: ", ex);
 
 			Response responseBody = new Response("Error in giving back a book: ", input);
 			return ApiGatewayResponse.builder()

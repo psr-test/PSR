@@ -27,7 +27,7 @@ public class ListBookHandler implements RequestHandler<Map<String, Object>, ApiG
                     .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
                     .build();
         } catch (Exception ex) {
-            logger.error("Error in listing books: " + ex);
+            logger.error("Error in listing books: ", ex);
             return ApiGatewayResponse.builder().setStatusCode(500).build();
         }
     }

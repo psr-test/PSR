@@ -39,6 +39,7 @@ public class BorrowActionHandler implements RequestHandler<Map<String, Object>, 
 			action.setPerson(person);
 			action.setAction(BookAction.Action.BORROW.name());
 			action.setTimestamp(new Timestamp(new Date().getTime()).toString());
+			action.save();
 
 			return ApiGatewayResponse.builder()
 					.setStatusCode(200)
@@ -47,7 +48,7 @@ public class BorrowActionHandler implements RequestHandler<Map<String, Object>, 
 					.build();
 
       	} catch (Exception ex) {
-      	    logger.error("Error in borrowing a book: " + ex);
+      	    logger.error("Error in borrowing a book: ", ex);
 
 			Response responseBody = new Response("Error in borrowing a book: ", input);
 			return ApiGatewayResponse.builder()

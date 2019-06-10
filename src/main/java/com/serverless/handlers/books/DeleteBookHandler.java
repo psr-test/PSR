@@ -36,7 +36,7 @@ public class DeleteBookHandler implements RequestHandler<Map<String, Object>, Ap
                         .build();
             }
         } catch (Exception ex) {
-            logger.error("Error in deleting book: " + ex);
+            logger.error("Error in deleting book: ", ex);
             return ApiGatewayResponse.builder()
                     .setStatusCode(500)
                     .build();

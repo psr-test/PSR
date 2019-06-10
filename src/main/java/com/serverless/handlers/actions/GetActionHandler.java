@@ -38,7 +38,7 @@ public class GetActionHandler implements RequestHandler<Map<String, Object>, Api
                         .build();
             }
         } catch (Exception ex) {
-            logger.error("Error in retrieving book action: " + ex);
+            logger.error("Error in retrieving book action: ", ex);
             return ApiGatewayResponse.builder()
                     .setStatusCode(500)
                     .build();
