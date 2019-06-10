@@ -51,7 +51,7 @@ provider:
 # you can define service wide environment variables here
   environment:
     BOOKS_TABLE_NAME: books
-    BOOK_ACTION_TABLE_NAME: book_action
+    BOOK_ACTION_TABLE_NAME: book_actions
 
 # you can add packaging information here
 package:
@@ -176,7 +176,7 @@ resources:
     booksActionTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: bookActions
+        TableName: book_actions
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
