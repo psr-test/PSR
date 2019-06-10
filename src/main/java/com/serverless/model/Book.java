@@ -8,10 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @DynamoDBTable(tableName = "PLACEHOLDER_bookS_TABLE_NAME")
@@ -118,5 +115,29 @@ public class Book {
 
     public synchronized void giveBack() {
         copies += 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) &&
+                Objects.equals(name, book.name) &&
+                Objects.equals(copies, book.copies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, copies);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", copies=" + copies +
+                '}';
     }
 }

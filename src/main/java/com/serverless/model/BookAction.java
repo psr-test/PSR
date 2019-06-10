@@ -8,15 +8,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @DynamoDBTable(tableName = "PLACEHOLDER_bookS_TABLE_NAME")
 public class BookAction {
     public enum Action {
-        BORROW, GIVE_BACK;
+        BORROW, GIVE_BACK
     }
 
     private static final String TABLE_NAME = System.getenv("BOOK_ACTION_TABLE_NAME");
@@ -110,5 +107,33 @@ public class BookAction {
     public void save() {
         logger.info("BookActions - save(): " + toString());
         mapper.save(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookAction that = (BookAction) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(bookId, that.bookId) &&
+                Objects.equals(person, that.person) &&
+                action == that.action &&
+                Objects.equals(timestamp, that.timestamp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, bookId, person, action, timestamp);
+    }
+
+    @Override
+    public String toString() {
+        return "BookAction{" +
+                "id='" + id + '\'' +
+                ", bookId='" + bookId + '\'' +
+                ", person='" + person + '\'' +
+                ", action=" + action +
+                ", timestamp='" + timestamp + '\'' +
+                '}';
     }
 }
