@@ -50,7 +50,7 @@ public class BorrowActionHandler implements RequestHandler<Map<String, Object>, 
         } catch (Exception ex) {
             logger.error("Error in borrowing a book: ", ex);
 
-            Response responseBody = new Response("Error in borrowing a book: ", input);
+            Response responseBody = new Response("Error in borrowing a book: " + ex, input);
             return ApiGatewayResponse.builder()
                     .setStatusCode(500)
                     .setObjectBody(responseBody)

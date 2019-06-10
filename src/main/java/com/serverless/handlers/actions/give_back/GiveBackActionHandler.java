@@ -48,7 +48,7 @@ public class GiveBackActionHandler implements RequestHandler<Map<String, Object>
         } catch (Exception ex) {
             logger.error("Error in giving back a book: ", ex);
 
-            Response responseBody = new Response("Error in giving back a book: ", input);
+            Response responseBody = new Response("Error in giving back a book: " + ex, input);
             return ApiGatewayResponse.builder()
                     .setStatusCode(500)
                     .setObjectBody(responseBody)

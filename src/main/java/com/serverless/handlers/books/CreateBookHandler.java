@@ -37,7 +37,7 @@ public class CreateBookHandler implements RequestHandler<Map<String, Object>, Ap
         } catch (Exception ex) {
             logger.error("Error in saving book: ", ex);
 
-            Response responseBody = new Response("Error in saving book: ", input);
+            Response responseBody = new Response("Error in saving book: " + ex, input);
             return ApiGatewayResponse.builder()
                     .setStatusCode(500)
                     .setObjectBody(responseBody)
