@@ -12,6 +12,7 @@ provider "github" {
 resource "aws_s3_bucket" "pipeline" {
   bucket = "pipeline-bucket-c7b8df61-14fc-4987-b59e-b9ab843c3216"
   acl    = "private"
+  force_destroy = true
 }
 
 resource "aws_iam_role" "pipeline" {
