@@ -46,7 +46,8 @@ resource "aws_iam_role_policy" "pipeline" {
       "Action": [
         "s3:GetObject",
         "s3:GetObjectVersion",
-        "s3:GetBucketVersioning"
+        "s3:GetBucketVersioning",
+        "s3:PutObject"
       ],
       "Resource": [
         "${aws_s3_bucket.pipeline.arn}",
@@ -73,6 +74,13 @@ resource "aws_kms_key" "pipeline" {
 resource "aws_kms_alias" "pipeline" {
   name          = "alias/pipeline_alias"
   target_key_id = "${aws_kms_key.pipeline.key_id}"
+}
+
+resource "aws_kms_grant" "pipeline" {
+  name              = "grant-pipeline"
+  key_id            = "${aws_kms_key.pipeline.key_id}"
+  grantee_principal = "${aws_iam_role.pipeline.arn}"
+  operations        = ["Encrypt", "Decrypt", "GenerateDataKey"]
 }
 
 resource "aws_codepipeline" "pipeline" {
