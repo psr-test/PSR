@@ -84,7 +84,7 @@ resource "aws_kms_grant" "pipeline" {
 }
 
 resource "aws_codepipeline" "pipeline" {
-  name     = "tf-test-pipeline"
+  name     = "tf-pipeline"
   role_arn = "${aws_iam_role.pipeline.arn}"
 
   artifact_store {
@@ -144,7 +144,7 @@ locals {
 }
 
 resource "aws_codepipeline_webhook" "pipeline" {
-  name            = "test-webhook-github-bar"
+  name            = "webhook-github-pipeline"
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = "${aws_codepipeline.pipeline.name}"
