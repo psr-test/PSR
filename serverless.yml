@@ -64,48 +64,56 @@ functions:
       - http:
           path: /books
           method: get
+          cors: true
   getBook:
     handler: com.serverless.handlers.books.GetBookHandler
     events:
       - http:
           path: /books/{id}
           method: get
+          cors: true
   createBook:
     handler: com.serverless.handlers.books.CreateBookHandler
     events:
       - http:
           path: /books
           method: post
+          cors: true
   deleteBook:
     handler: com.serverless.handlers.books.DeleteBookHandler
     events:
       - http:
           path: /books/{id}
           method: delete
+          cors: true
   borrowBook:
     handler: com.serverless.handlers.actions.borrow.BorrowActionHandler
     events:
       - http:
           path: /borrow/
           method: post
+          cors: true
   giveBackBook:
     handler: com.serverless.handlers.actions.give_back.GiveBackActionHandler
     events:
       - http:
           path: /give-back/
           method: post
+          cors: true
   listActions:
     handler: com.serverless.handlers.actions.ListActionsHandler
     events:
       - http:
           path: /book-actions/
           method: get
+          cors: true
   getAction:
     handler: com.serverless.handlers.actions.GetActionHandler
     events:
       - http:
           path: /book-actions/{id}
           method: get
+          cors: true
 
 
 #    The following are a few example events you can configure

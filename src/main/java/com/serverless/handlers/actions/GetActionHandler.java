@@ -3,12 +3,12 @@ package com.serverless.handlers.actions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
+import com.serverless.Headers;
 import com.serverless.model.BookAction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,13 +28,13 @@ public class GetActionHandler implements RequestHandler<Map<String, Object>, Api
                 return ApiGatewayResponse.builder()
                         .setStatusCode(200)
                         .setObjectBody(action.get())
-                        .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                        .setHeaders(Headers.headers)
                         .build();
             } else {
                 return ApiGatewayResponse.builder()
                         .setStatusCode(404)
                         .setObjectBody("Book action with id: '" + id + "' not found.")
-                        .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                        .setHeaders(Headers.headers)
                         .build();
             }
         } catch (Exception ex) {

@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverless.ApiGatewayResponse;
+import com.serverless.Headers;
 import com.serverless.Response;
 import com.serverless.model.Book;
 import com.serverless.model.BookAction;
@@ -13,11 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 
 public class BorrowActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
@@ -44,7 +42,7 @@ public class BorrowActionHandler implements RequestHandler<Map<String, Object>, 
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)
                     .setObjectBody(book)
-                    .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                    .setHeaders(Headers.headers)
                     .build();
 
         } catch (Exception ex) {
@@ -54,7 +52,7 @@ public class BorrowActionHandler implements RequestHandler<Map<String, Object>, 
             return ApiGatewayResponse.builder()
                     .setStatusCode(500)
                     .setObjectBody(responseBody)
-                    .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                    .setHeaders(Headers.headers)
                     .build();
         }
     }

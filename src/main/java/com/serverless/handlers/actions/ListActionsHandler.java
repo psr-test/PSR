@@ -3,12 +3,12 @@ package com.serverless.handlers.actions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
+import com.serverless.Headers;
 import com.serverless.model.BookAction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +24,7 @@ public class ListActionsHandler implements RequestHandler<Map<String, Object>, A
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)
                     .setObjectBody(books)
-                    .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                    .setHeaders(Headers.headers)
                     .build();
         } catch (Exception ex) {
             logger.error("Error in listing book actions: ", ex);

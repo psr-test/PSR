@@ -3,12 +3,12 @@ package com.serverless.handlers.books;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.serverless.ApiGatewayResponse;
+import com.serverless.Headers;
 import com.serverless.model.Book;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,13 +28,13 @@ public class GetBookHandler implements RequestHandler<Map<String, Object>, ApiGa
                 return ApiGatewayResponse.builder()
                         .setStatusCode(200)
                         .setObjectBody(book.get())
-                        .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                        .setHeaders(Headers.headers)
                         .build();
             } else {
                 return ApiGatewayResponse.builder()
                         .setStatusCode(404)
                         .setObjectBody("Book with id: '" + bookId + "' not found.")
-                        .setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & Serverless"))
+                        .setHeaders(Headers.headers)
                         .build();
             }
         } catch (Exception ex) {
