@@ -50,7 +50,8 @@ resource "aws_iam_policy" "codebuild" {
         "route53:*",
         "s3:*",
         "cloudformation:*",
-        "apigateway:*"
+        "apigateway:*",
+        "dynamodb:*"
       ]
     },
     {
