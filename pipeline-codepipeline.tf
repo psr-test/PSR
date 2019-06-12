@@ -34,7 +34,7 @@ resource "aws_codepipeline" "codepipeline" {
         OAuthToken = "${var.github_token}"
         Owner  = "psr-test"
         Repo   = "PSR"
-        Branch = "library-pipeline"
+        Branch = "master"
       }
     }
   }
