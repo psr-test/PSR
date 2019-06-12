@@ -84,6 +84,121 @@ resource "aws_kms_grant" "pipeline" {
   operations        = ["Encrypt", "Decrypt", "GenerateDataKey"]
 }
 
+# -------------------------------------------------------------------------------------------------
+resource "aws_s3_bucket" "codebuild" {
+  bucket = "codebuild-bucket-c7b8df61-14fc-4987-b59e-b9ab843c3216"
+  acl    = "private"
+  force_destroy = true
+}
+
+resource "aws_iam_role" "codebuild" {
+  name = "codebuild-role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codebuild.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "codebuild" {
+  role = "${aws_iam_role.codebuild.name}"
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateNetworkInterface",
+        "ec2:DescribeDhcpOptions",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeVpcs"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "${aws_s3_bucket.codebuild.arn}",
+        "${aws_s3_bucket.codebuild.arn}/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:GetAuthorizationToken"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_kms_grant" "codebuild" {
+  name              = "grant-codebuild"
+  key_id            = "${aws_kms_key.pipeline.key_id}"
+  grantee_principal = "${aws_iam_role.codebuild.arn}"
+  operations        = ["Encrypt", "Decrypt", "GenerateDataKey"]
+}
+
+resource "aws_codebuild_project" "codebuild" {
+  name          = "tf-codebuild"
+  description   = "tf_codebuild_project"
+  build_timeout = "5"
+  service_role  = "${aws_iam_role.codebuild.arn}"
+
+  source {
+    type = "CODEPIPELINE"
+    buildspec = "buildspec.yml"
+  }
+
+  artifacts {
+    type = "CODEPIPELINE"
+  }
+
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL"
+    image                       = "aws/codebuild/standard:1.0"
+    type                        = "LINUX_CONTAINER"
+    image_pull_credentials_type = "CODEBUILD"
+  }
+}
+# -------------------------------------------------------------------------------------------------
+
 resource "aws_codepipeline" "pipeline" {
   name     = "tf-pipeline"
   role_arn = "${aws_iam_role.pipeline.arn}"
@@ -130,7 +245,7 @@ resource "aws_codepipeline" "pipeline" {
       version         = "1"
 
       configuration = {
-        ProjectName = "test"
+        ProjectName = "${aws_codebuild_project.codebuild.name}"
       }
     }
   }
