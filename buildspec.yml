@@ -5,7 +5,7 @@ phases:
     commands:
       npm install --silent --no-progress -g serverless
     runtime-versions:
-      java: openjdk11
+      java: openjdk8
   build:
     commands:
       - echo Build started on `date`
@@ -17,7 +17,7 @@ phases:
       - mkdir -p target/stg
       - mkdir target/prod
       - serverless package --package target/prod --stage prod -v -r eu-central-1
-      - serverless package --package target/stg --stage stg -v -r eu-central-1
+#      - serverless package --package target/stg --stage stg -v -r eu-central-1
 artifacts:
   files:
     - target/**/*

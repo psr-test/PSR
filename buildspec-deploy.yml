@@ -6,4 +6,9 @@ phases:
       nodejs: 8
   build:
     commands:
-      - bash deploy.sh
+      - npm install -g serverless@1.41.1
+      - echo "EHV $env"
+      - echo "CODEBUILD_SRC_DIR $CODEBUILD_SRC_DIR"
+      - ls -la $CODEBUILD_SRC_DIR
+      - ls -la $CODEBUILD_SRC_DIR/target
+      - serverless deploy --stage $env --package $CODEBUILD_SRC_DIR/target/$env -v -r eu-central-1
