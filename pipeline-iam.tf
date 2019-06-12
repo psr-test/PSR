@@ -48,7 +48,7 @@ resource "aws_iam_policy" "codebuild" {
         "logs:*",
         "rds:DescribeDBInstances",
         "route53:*",
-        "s3:*"
+        "s3:*",
         "cloudformation:DescribeStacks"
       ]
     },
