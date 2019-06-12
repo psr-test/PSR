@@ -9,10 +9,10 @@ public class Headers {
 
     private static Map<String, String> initHeaders() {
         final HashMap<String, String> headers = new HashMap<>();
-        headers.put("Access-Control-Allow-Origin","*");
-        headers.put("Access-Control-Allow-Credentials","true");
-        headers.put("X-Powered-By","AWS Lambda & Serverless");
-        return  headers;
+        headers.put("Access-Control-Allow-Origin", "*");
+        headers.put("Access-Control-Allow-Credentials", "true");
+        headers.put("X-Powered-By", "AWS Lambda & Serverless");
+        return headers;
     }
 
 }
