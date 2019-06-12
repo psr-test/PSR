@@ -6,7 +6,7 @@ phases:
       nodejs: 8
   build:
     commands:
-      - npm install -g serverless@1.41.1
+      - npm install --silent --no-progress -g serverless@1.41.1
       - echo "EHV $env"
       - echo "CODEBUILD_SRC_DIR $CODEBUILD_SRC_DIR"
       - ls -la $CODEBUILD_SRC_DIR
