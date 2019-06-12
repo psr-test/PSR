@@ -49,10 +49,12 @@ resource "aws_iam_policy" "codebuild" {
         "rds:DescribeDBInstances",
         "route53:*",
         "s3:*",
-        "cloudformation:DescribeStacks",
-        "cloudformation:CreateStack",
-        "cloudformation:DescribeStackEvents",
-        "cloudformation:DescribeStackResource"
+//        "cloudformation:DescribeStacks",
+//        "cloudformation:CreateStack",
+//        "cloudformation:DescribeStackEvents",
+//        "cloudformation:DescribeStackResource",
+//        "cloudformation:ValidateTemplate"
+        "cloudformation:*"
       ]
     },
     {
