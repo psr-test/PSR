@@ -51,8 +51,8 @@ provider:
 
 # you can define service wide environment variables here
   environment:
-    BOOKS_TABLE_NAME: books
-    BOOK_ACTION_TABLE_NAME: book_actions
+    BOOKS_TABLE_NAME: books-${opt:stage, self:provider.stage}
+    BOOK_ACTION_TABLE_NAME: book_actions-${opt:stage, self:provider.stage}
 
 # you can add packaging information here
 package:
@@ -168,7 +168,7 @@ resources:
     booksTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: books
+        TableName: 'books-${opt:stage, self:provider.stage}'
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -185,7 +185,7 @@ resources:
     booksActionTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: book_actions
+        TableName: 'book_actions-${opt:stage, self:provider.stage}'
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
