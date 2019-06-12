@@ -51,7 +51,8 @@ resource "aws_iam_policy" "codebuild" {
         "s3:*",
         "cloudformation:DescribeStacks",
         "cloudformation:CreateStack",
-        "cloudformation:DescribeStackEvents"
+        "cloudformation:DescribeStackEvents",
+        "cloudformation:DescribeStackResource"
       ]
     },
     {
