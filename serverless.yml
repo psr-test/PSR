@@ -91,14 +91,14 @@ functions:
     handler: com.serverless.handlers.actions.borrow.BorrowActionHandler
     events:
       - http:
-          path: /borrow/
+          path: /borrows/
           method: post
           cors: true
   giveBackBook:
     handler: com.serverless.handlers.actions.give_back.GiveBackActionHandler
     events:
       - http:
-          path: /give-back/
+          path: /give-backs/
           method: post
           cors: true
   listActions:
