@@ -4,7 +4,7 @@ const fs = require('fs');
 const endpoints = require('../endpoints.json');
 
 describe('Create, Delete', function() {
-    this.timeout(10000);
+    this.timeout(60000);
     it('should create a new Book, & delete it', done => {
         const path = endpoints['listBooks']['GET'];
         const desiredPayload = require("./data/createBook.json");
