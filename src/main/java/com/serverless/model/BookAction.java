@@ -87,12 +87,12 @@ public class BookAction {
     }
 
     public static List<BookAction> listBorrows() {
-        DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
+        DynamoDBScanExpression scanExp = new DynamoDBScanExpression()
                 .withFilterExpression("#a = :v1")
                 .withExpressionAttributeNames(singletonMap("#a", "action"))
                 .withExpressionAttributeValues(singletonMap(":v1", new AttributeValue().withS("BORROW")));
 
-        List<BookAction> results = mapper.query(BookAction.class, queryExp);
+        List<BookAction> results = mapper.scan(BookAction.class, scanExp);
         for (BookAction action : results) {
             logger.info("BookActions - listBorrows(): " + action.toString());
         }
@@ -100,12 +100,12 @@ public class BookAction {
     }
 
     public static List<BookAction> listGiveBacks() {
-        DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
+        DynamoDBScanExpression scanExp = new DynamoDBScanExpression()
                 .withFilterExpression("#a = :v1")
                 .withExpressionAttributeNames(singletonMap("#a", "action"))
                 .withExpressionAttributeValues(singletonMap(":v1", new AttributeValue().withS("GIVE_BACK")));
 
-        List<BookAction> results = mapper.query(BookAction.class, queryExp);
+        List<BookAction> results = mapper.scan(BookAction.class, scanExp);
         for (BookAction action : results) {
             logger.info("BookActions - listGiveBacks(): " + action.toString());
         }
