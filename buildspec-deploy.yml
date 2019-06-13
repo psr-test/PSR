@@ -9,4 +9,4 @@ phases:
   build:
     commands:
       - npm run sls deploy --stage $env --package $CODEBUILD_SRC_DIR/target/$env -v -r eu-central-1
-      - npm run sls exportEndpoints
+      - npm run sls exportEndpoints --stage $env --package $CODEBUILD_SRC_DIR/target/$env
