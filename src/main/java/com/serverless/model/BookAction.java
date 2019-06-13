@@ -88,7 +88,7 @@ public class BookAction {
 
     public static List<BookAction> listBorrows() {
         DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
-                .withKeyConditionExpression("#a = :v1")
+                .withFilterExpression("#a = :v1")
                 .withExpressionAttributeNames(singletonMap("#a", "action"))
                 .withExpressionAttributeValues(singletonMap(":v1", new AttributeValue().withS("BORROW")));
 
@@ -101,7 +101,7 @@ public class BookAction {
 
     public static List<BookAction> listGiveBacks() {
         DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
-                .withKeyConditionExpression("#a = :v1")
+                .withFilterExpression("#a = :v1")
                 .withExpressionAttributeNames(singletonMap("#a", "action"))
                 .withExpressionAttributeValues(singletonMap(":v1", new AttributeValue().withS("GIVE_BACK")));
 
