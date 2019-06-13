@@ -6,6 +6,6 @@ phases:
       nodejs: 8
   build:
     commands:
-      - npm install --silent --no-progress -g serverless@1.41.1
+      - npm install --silent --no-progress --only=dev
       - serverless deploy --stage $env --package $CODEBUILD_SRC_DIR/target/$env -v -r eu-central-1
       - serverless exportEndpoints
