@@ -8,8 +8,11 @@ phases:
       nodejs: 8
   build:
     commands:
-      - npm run sls -- deploy --stage $env --package $CODEBUILD_SRC_DIR/target/serverless/$env -v -r eu-central-1
-#      - npm run sls exportEndpoints
+      - ls -la $CODEBUILD_SRC_DIR
+      - ls -la $CODEBUILD_SRC_DIR/target
+      - ls -la $CODEBUILD_SRC_DIR/target/serverless
+      - npx sls deploy --stage $env --package $CODEBUILD_SRC_DIR/target/serverless/$env -v -r eu-central-1
+#      - npx sls exportEndpoints
       - ls -la target
       - ls -la target/serverless
-      - npm run sls -- info --verbose
+      - npx sls info --verbose

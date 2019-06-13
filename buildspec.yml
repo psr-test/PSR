@@ -10,8 +10,8 @@ phases:
     commands:
       - echo Build started on $(date)
       - mvn package
-      - npm run sls -- package --package target/serverless/dev --stage dev -v -r eu-central-1
-      - npm run sls -- package --package target/serverless/prod --stage prod -v -r eu-central-1
+      - npx sls package --package target/serverless/dev --stage dev -v -r eu-central-1
+      - npx sls package --package target/serverless/prod --stage prod -v -r eu-central-1
       - echo Build completed on $(date)
       - ls -la target
       - ls -la target/serverless
