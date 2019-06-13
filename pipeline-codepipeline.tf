@@ -77,14 +77,14 @@ resource "aws_codepipeline" "codepipeline" {
   stage {
     name = "DeployProd"
 
-//    action {
-//      name      = "ApprovalStage"
-//      category  = "Approval"
-//      owner     = "AWS"
-//      provider  = "Manual"
-//      run_order = 1
-//      version   = "1"
-//    }
+    action {
+      name      = "ApprovalStage"
+      category  = "Approval"
+      owner     = "AWS"
+      provider  = "Manual"
+      run_order = 1
+      version   = "1"
+    }
 
     action {
       name            = "Deploy"
