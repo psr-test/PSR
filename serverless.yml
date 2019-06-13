@@ -58,7 +58,7 @@ provider:
 
 # you can add packaging information here
 package:
-  artifact: 'target/${self:service}-${self:provider.stage}.jar'
+  artifact: 'target/serverless/${self:service}-${self:provider.stage}.jar'
 
 functions:
   listBooks:
