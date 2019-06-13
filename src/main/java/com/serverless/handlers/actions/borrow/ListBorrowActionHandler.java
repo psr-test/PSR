@@ -12,7 +12,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Map;
 
-public class ListBorrowsActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class ListBorrowActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
