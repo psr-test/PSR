@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 import java.lang.invoke.MethodHandles;
 import java.util.*;
 
+import static java.util.Collections.singletonMap;
+
 @DynamoDBTable(tableName = "PLACEHOLDER_bookS_TABLE_NAME")
 public class BookAction {
     public enum Action {
@@ -85,10 +87,10 @@ public class BookAction {
     }
 
     public static List<BookAction> listBorrows() {
-        Map<String, AttributeValue> av = Collections.singletonMap(":v1", new AttributeValue().withS("BORROW"));
         DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
-                .withKeyConditionExpression(" = :v1")
-                .withExpressionAttributeValues(av);
+                .withKeyConditionExpression("#a = :v1")
+                .withExpressionAttributeNames(singletonMap("#a", "action"))
+                .withExpressionAttributeValues(singletonMap(":v1", new AttributeValue().withS("BORROW")));
 
         List<BookAction> results = mapper.query(BookAction.class, queryExp);
         for (BookAction action : results) {
@@ -98,10 +100,10 @@ public class BookAction {
     }
 
     public static List<BookAction> listGiveBacks() {
-        Map<String, AttributeValue> av = Collections.singletonMap(":v1", new AttributeValue().withS("GIVE_BACK"));
         DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
-                .withKeyConditionExpression("action = :v1")
-                .withExpressionAttributeValues(av);
+                .withKeyConditionExpression("#a = :v1")
+                .withExpressionAttributeNames(singletonMap("#a", "action"))
+                .withExpressionAttributeValues(singletonMap(":v1", new AttributeValue().withS("GIVE_BACK")));
 
         List<BookAction> results = mapper.query(BookAction.class, queryExp);
         for (BookAction action : results) {
@@ -111,7 +113,7 @@ public class BookAction {
     }
 
     public static Optional<BookAction> get(String id) {
-        Map<String, AttributeValue> av = Collections.singletonMap(":v1", new AttributeValue().withS(id));
+        Map<String, AttributeValue> av = singletonMap(":v1", new AttributeValue().withS(id));
 
         DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
                 .withKeyConditionExpression("action = :v1")
