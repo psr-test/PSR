@@ -9,4 +9,4 @@ phases:
   build:
     commands:
       - npm run sls deploy --stage $env --package $CODEBUILD_SRC_DIR/target/$env -v -r eu-central-1
-      - node_modules/.bin/sls exportEndpoints --stage $env --package $CODEBUILD_SRC_DIR/target/$env
+      - echo "$(node_modules/.bin/serverless info --verbose | grep ServiceEndpoint | sed s/ServiceEndpoint\:\ //g)"
