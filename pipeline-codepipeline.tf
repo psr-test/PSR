@@ -58,16 +58,33 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
-    name = "DeployProd"
+    name = "DeployStaging"
 
     action {
-      name      = "ApprovalStage"
-      category  = "Approval"
-      owner     = "AWS"
-      provider  = "Manual"
-      run_order = 1
-      version   = "1"
+      name            = "Deploy"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      input_artifacts = ["BuildArtifact"]
+      version         = "1"
+
+      configuration = {
+        ProjectName = "${aws_codebuild_project.deploy_dev.name}"
+      }
     }
+  }
+
+  stage {
+    name = "DeployProd"
+
+//    action {
+//      name      = "ApprovalStage"
+//      category  = "Approval"
+//      owner     = "AWS"
+//      provider  = "Manual"
+//      run_order = 1
+//      version   = "1"
+//    }
 
     action {
       name            = "Deploy"
