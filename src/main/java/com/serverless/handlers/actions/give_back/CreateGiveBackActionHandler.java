@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
-public class GiveBackActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class CreateGiveBackActionHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 

@@ -90,18 +90,32 @@ functions:
           method: delete
           cors: true
   borrowBook:
-    handler: com.serverless.handlers.actions.borrow.BorrowActionHandler
+    handler: com.serverless.handlers.actions.borrow.CreateBorrowActionHandler
     events:
       - http:
           path: /borrows/
           method: post
           cors: true
+  listBorrows:
+    handler: com.serverless.handlers.actions.borrow.ListBorrowActionHandler
+    events:
+      - http:
+          path: /borrows/
+          method: get
+          cors: true
   giveBackBook:
-    handler: com.serverless.handlers.actions.give_back.GiveBackActionHandler
+    handler: com.serverless.handlers.actions.give_back.CreateGiveBackActionHandler
     events:
       - http:
           path: /give-backs/
           method: post
+          cors: true
+  listGiveBacks:
+    handler: com.serverless.handlers.actions.give_back.ListGiveBackActionHandler
+    events:
+      - http:
+          path: /give-backs/
+          method: get
           cors: true
   listActions:
     handler: com.serverless.handlers.actions.ListActionsHandler

@@ -84,14 +84,40 @@ public class BookAction {
         return results;
     }
 
+    public static List<BookAction> listBorrows() {
+        Map<String, AttributeValue> av = Collections.singletonMap(":v1", new AttributeValue().withS("BORROW"));
+        DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
+                .withKeyConditionExpression(" = :v1")
+                .withExpressionAttributeValues(av);
+
+        List<BookAction> results = mapper.query(BookAction.class, queryExp);
+        for (BookAction action : results) {
+            logger.info("BookActions - listBorrows(): " + action.toString());
+        }
+        return results;
+    }
+
+    public static List<BookAction> listGiveBacks() {
+        Map<String, AttributeValue> av = Collections.singletonMap(":v1", new AttributeValue().withS("GIVE_BACK"));
+        DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
+                .withKeyConditionExpression("action = :v1")
+                .withExpressionAttributeValues(av);
+
+        List<BookAction> results = mapper.query(BookAction.class, queryExp);
+        for (BookAction action : results) {
+            logger.info("BookActions - listGiveBacks(): " + action.toString());
+        }
+        return results;
+    }
+
     public static Optional<BookAction> get(String id) {
         Map<String, AttributeValue> av = Collections.singletonMap(":v1", new AttributeValue().withS(id));
 
         DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
-                .withKeyConditionExpression("id = :v1")
+                .withKeyConditionExpression("action = :v1")
                 .withExpressionAttributeValues(av);
 
-        PaginatedQueryList<BookAction> result = mapper.query(BookAction.class, queryExp);
+        List<BookAction> result = mapper.query(BookAction.class, queryExp);
 
         BookAction action;
         if (!result.isEmpty()) {
