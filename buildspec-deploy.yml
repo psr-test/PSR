@@ -11,7 +11,9 @@ phases:
       - ls -la $CODEBUILD_SRC_DIR
       - ls -la $CODEBUILD_SRC_DIR/target
       - ls -la $CODEBUILD_SRC_DIR/target/serverless
-      - npx sls deploy --stage $env --package $CODEBUILD_SRC_DIR/target/serverless/$env -v -r eu-central-1
+      - ls -la $CODEBUILD_SRC_DIR/target/serverless/dev
+      - echo "ENV: $env"
+      - npx sls deploy --stage $env --package target/serverless/$env -v -r eu-central-1
 #      - npx sls exportEndpoints
       - ls -la target
       - ls -la target/serverless
