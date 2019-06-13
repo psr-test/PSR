@@ -3,8 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      npm install --silent --no-progress -g serverless
-      npm install --silent --no-progress -g serverless-plugin-export-endpoints
+      - npm install --silent --no-progress -g serverless
+      - npm install --silent --no-progress -g serverless-plugin-export-endpoints
     runtime-versions:
       java: openjdk8
   post_build:
