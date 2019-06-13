@@ -9,16 +9,11 @@ resource "aws_codebuild_project" "deploy_dev" {
     image                       = "aws/codebuild/standard:2.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
-
-    environment_variable {
-      name  = "env"
-      value = "dev"
-    }
   }
 
   source {
     type = "CODEPIPELINE"
-    buildspec = "buildspec-deploy.yml"
+    buildspec = "buildspec-deploy-dev.yml"
   }
 
   artifacts {
@@ -37,16 +32,11 @@ resource "aws_codebuild_project" "deploy_prod" {
     image                       = "aws/codebuild/standard:2.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
-
-    environment_variable {
-      name  = "env"
-      value = "prod"
-    }
   }
 
   source {
     type = "CODEPIPELINE"
-    buildspec = "buildspec-deploy.yml"
+    buildspec = "buildspec-deploy-prod.yml"
   }
 
   artifacts {

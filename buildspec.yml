@@ -3,23 +3,20 @@ version: 0.2
 phases:
   install:
     commands:
-      - npm install --silent --no-progress
+      - npm install --silent --no-progress serverless
+      - npm install --silent --no-progress serverless-plugin-export-endpoints
     runtime-versions:
       java: openjdk8
-  post_build:
+  build:
     commands:
-      - echo Build started on $(date)
       - mvn package
       - npx sls package --package target/serverless/dev --stage dev -v -r eu-central-1
       - npx sls package --package target/serverless/prod --stage prod -v -r eu-central-1
-      - echo Build completed on $(date)
-      - ls -la target
-      - ls -la target/serverless
-      - ls -la target/serverless/dev
 artifacts:
   files:
     - target/library-api-dev.jar
     - target/serverless/**/*
     - serverless.yml
     - package.json
-    - buildspec-deploy.yml
+    - buildspec-deploy-dev.yml
+    - buildspec-deploy-prod.yml

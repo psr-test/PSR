@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - npm install --silent --no-progress serverless
+      - npm install --silent --no-progress serverless-plugin-export-endpoints
+    runtime-versions:
+      nodejs: 8
+  build:
+    commands:
+      - npx sls deploy --stage prod --package target/serverless/prod -v -r eu-central-1
