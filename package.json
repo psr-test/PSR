@@ -1,0 +1,14 @@
+{
+  "name": "library-api",
+  "description": "a simple library api for a project assignment",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "scripts": {},
+  "dependencies": {
+    "mocha": "^6.1.4",
+    "requests": "^0.2.2",
+    "serverless-plugin-export-endpoints": "^0.1.2"
+  },
+  "devDependencies": {}
+}
