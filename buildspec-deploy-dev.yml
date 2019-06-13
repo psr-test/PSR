@@ -9,7 +9,7 @@ phases:
   build:
     commands:
       - npx sls deploy --stage dev --package target/serverless/dev -v -r eu-central-1
-  post-build:
+  post_build:
     commands:
       - npx sls exportEndpoints
       - npm test
