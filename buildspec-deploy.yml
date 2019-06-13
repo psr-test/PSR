@@ -4,6 +4,7 @@ phases:
   install:
     commands:
       - npm install --silent --no-progress -g serverless
+      - npm install --silent --no-progress -g serverless-plugin-export-endpoints
     runtime-versions:
       nodejs: 8
   build:

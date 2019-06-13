@@ -10,8 +10,6 @@ phases:
     commands:
       - echo Build started on $(date)
       - mvn package
-      - mkdir target/serverless
-      - mv target/library-api-dev.jar target/serverless
       - npm run sls package --package target/serverless/prod --stage prod -v -r eu-central-1
       - npm run sls package --package target/serverless/dev --stage dev -v -r eu-central-1
       - echo Build completed on $(date)
@@ -19,7 +17,8 @@ phases:
       - ls -la target/serverless
 artifacts:
   files:
-    - target/serverless/*
+    - target/library-api-dev.jar
+    - target/serverless/**
     - serverless.yml
     - package.json
     - buildspec-deploy.yml
