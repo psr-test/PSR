@@ -2,10 +2,11 @@ version: 0.2
 
 phases:
   install:
+    commands:
+      - npm install --silent --no-progress
     runtime-versions:
       nodejs: 8
   build:
     commands:
-      - npm install --silent --no-progress --only=dev
-      - node_modules/.bin/serverless deploy --stage $env --package $CODEBUILD_SRC_DIR/target/$env -v -r eu-central-1
-      - node_modules/.bin/serverless exportEndpoints
+      - npm run sls deploy --stage $env --package $CODEBUILD_SRC_DIR/target/$env -v -r eu-central-1
+      - npm run sls exportEndpoints

@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      npm install --silent --no-progress -g serverless
+      npm install --silent --no-progress
     runtime-versions:
       java: openjdk8
   build:
@@ -16,10 +16,11 @@ phases:
       - mvn package
       - mkdir -p target/stg
       - mkdir target/prod
-      - serverless package --package target/prod --stage prod -v -r eu-central-1
-      - serverless package --package target/dev --stage dev -v -r eu-central-1
+      - npm run sls package --package target/prod --stage prod -v -r eu-central-1
+      - npm run sls package --package target/dev --stage dev -v -r eu-central-1
 artifacts:
   files:
     - target/**/*
     - serverless.yml
+    - package.json
     - buildspec-deploy.yml
