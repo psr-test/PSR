@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,8 @@ public class ListBookHandler implements RequestHandler<Map<String, Object>, ApiG
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
         try {
-            List<Book> books = Book.list();
+            //List<Book> books = Book.list();
+            List<Book> books = new ArrayList<>();
 
             return ApiGatewayResponse.builder()
                     .setStatusCode(200)
