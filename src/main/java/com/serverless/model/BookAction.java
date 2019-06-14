@@ -116,10 +116,10 @@ public class BookAction {
         Map<String, AttributeValue> av = singletonMap(":v1", new AttributeValue().withS(id));
 
         DynamoDBQueryExpression<BookAction> queryExp = new DynamoDBQueryExpression<BookAction>()
-                .withKeyConditionExpression("action = :v1")
+                .withKeyConditionExpression("id = :v1")
                 .withExpressionAttributeValues(av);
 
-        List<BookAction> result = mapper.query(BookAction.class, queryExp);
+        PaginatedQueryList<BookAction> result = mapper.query(BookAction.class, queryExp);
 
         BookAction action;
         if (!result.isEmpty()) {
