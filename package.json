@@ -3,9 +3,9 @@
   "description": "a simple library api for a project assignment",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "request": "^2.88.0",
-    "serverless": "^1.41.1",
+    "serverless": "^1.83.3",
     "serverless-plugin-export-endpoints": "^0.1.2"
   },
   "scripts": {
